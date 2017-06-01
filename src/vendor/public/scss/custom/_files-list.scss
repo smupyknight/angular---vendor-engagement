@@ -1,0 +1,25 @@
+.files-list {
+    .content {
+        .mat-tab-header {
+            border: none;
+            .mat-tab-label-container {
+                .mat-tab-list {
+                    .mat-tab-labels {
+                        .mat-tab-label {
+                            text-align: left;
+                            min-width: 100px;
+                            font-family: "Roboto";
+                            font-size: 18pt;
+                            font-weight: bold;
+                            color: rgba(0, 0, 0, .38);
+                            &.mat-tab-label-active {
+                                color: #33ACDD;
+                            }
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

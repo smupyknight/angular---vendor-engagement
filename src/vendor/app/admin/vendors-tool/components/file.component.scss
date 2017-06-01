@@ -1,0 +1,138 @@
+.file {
+    .header {
+        height: 60px;
+        background-color: #353B48;
+        padding: 0 15px;
+        img {
+            height: 30px;
+        }
+        .title {
+            color: #fff;
+            font-family: "Roboto";
+            font-weight: 500;
+            font-size: 22pt;
+        }
+        .account-info {
+            color: #fff;
+            text-align: right;
+            font-family: "Roboto";
+            font-weight: 400;
+            font-size: 12pt;
+            a {
+                color: #fff;
+                text-decoration: none;
+            }
+        }
+    }
+    .file-info {
+        height: 160px;
+        background-color: #7DCAE9;
+        padding: 37px 15px 0 60px;
+        .file_header {
+            height: 63px;
+            .file_name {
+                font-family: "Roboto";
+                font-size: 36pt;
+                color: rgba(0, 0, 0, .87);
+            }
+            a {
+                color: rgba(0, 0, 0, .87);
+                text-decoration: none;
+            }
+            .mat-icon {
+                font-size: 36pt;
+                width: 36pt;
+                height: 36pt;
+                cursor: pointer;
+            }
+        }
+        .file_content {
+            padding: 0 15px;
+            height: 60px;
+            div.label {
+                padding-right: 60px;
+                div {
+                    font-family: "Roboto";
+                    font-size: 14pt;
+                    color: rgba(0, 0, 0, .87);
+                    &.title {
+                        font-size: 12pt;
+                        font-weight: bold;
+                        padding-bottom: 7px; 
+                    }
+                }
+            }
+        }
+    }
+    .content {
+        .dropdown-toggle {
+            font-family: "Source Sans Pro Light";
+            color: #747474;
+            cursor: pointer;
+            float: right;
+            position: relative;
+            height: 36px;
+            width: 36px;
+            &:before {
+                position: absolute;
+                top: 0px;
+                left: 20px;
+                background-repeat: no-repeat;
+                display: inline-block;
+                font-size: 30px;
+                text-align: center;
+                content: "\2039";
+                }
+                &.icon-arrow-up {
+                    &:before {
+                        -webkit-transform: rotate(-90deg);
+                        transform: rotate(-90deg);
+                    }
+                }
+                &.icon-arrow-down {
+                    &:before {
+                    left: 26px;
+                    -webkit-transform: rotate(90deg);
+                    transform: rotate(90deg);
+                }
+            }
+        }
+        padding: 0px 60px 0 65px;
+        .category-list {
+            .category-items {
+                 border-bottom: 2pt solid rgba(0, 0, 0, .3);
+                 .category {
+                     height: 50px;
+                 }
+                 .vendor-list {
+                    .vendor_name { padding-right: 24px }
+                    .vendor_contact { padding-right: 24px }
+                    .country { padding-right: 18px }
+                    .invoices { padding-right: 18px }
+                    .vat_amount { padding-right: 18px }
+                    .sent { padding-right: 18px }
+                     .vendor-list-title {
+                        padding: 0 10px;
+                        height: 18px;
+                        font-family: "Roboto";
+                        font-size: 12pt;
+                        color: rgba(0, 0, 0, .54);
+                        border-bottom: 1pt solid rgba(0, 0, 0, .3);
+                     }
+                     .vendor {
+                        padding: 0 10px;
+                        height: 40px;
+                        font-family: "Roboto";
+                        font-size: 12pt;
+                        color: rgba(0, 0, 0, .87);
+                     }
+                 }
+            &.dropdown.open {
+                .vendor-list {
+                    display: flex !important;
+                }
+            }
+            }
+        }
+    }
+}

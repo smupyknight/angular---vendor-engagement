@@ -1,0 +1,49 @@
+machine:
+  services:
+    - docker
+  node:
+    version: 5.12.0
+
+
+dependencies:
+  cache_directories:
+    - "node_modules"
+  pre:
+    # apply artifactory user and key to .npmrc
+    - ./art-cred.sh "$ART_USER" "$ART_KEY" "$HOME"
+    # NPM License Checker
+    - npm install -g license-checker
+  override:
+    # change package version to MAJOR.MINOR.$CIRCLE_BUILD_NUM based on the version on package.json
+    - NEW_PACKAGE_VERSION=$(node change-ver.js ${CIRCLE_BUILD_NUM}) ; npm --no-git-tag-version version $NEW_PACKAGE_VERSION
+    # server side resolve dependencies
+    - npm install
+  post:
+    # report licenses
+    - license-checker --csv --out ${CIRCLE_TEST_REPORTS}/licenses.csv
+
+
+test:
+  pre:
+    - npm run lint
+  override:
+    # build test configuration and run tests
+    - npm test
+
+
+deployment:
+  default:
+    branch: [master,devops]
+    commands:
+      # build for prod
+      - npm run build
+      # create the file "client-version" that holds a json response of the current client version
+      - mkdir dist/api ; mkdir dist/api/exposed ; mkdir dist/api/exposed/v1.0
+      - NEW_PACKAGE_VERSION=$(node change-ver.js ${CIRCLE_BUILD_NUM}) ; echo '{'\"version\"':' \"$NEW_PACKAGE_VERSION\"'}' > dist/api/exposed/v1.0/client-version.json ; cat dist/api/exposed/v1.0/client-version.json
+      # Docker build
+      - docker build -t ${AWS_REG_URL}/vendor-engagement-app:$(node change-ver.js ${CIRCLE_BUILD_NUM} ${CIRCLE_BRANCH}) .
+      # just print the docker images
+      - docker images
+      # docker login and push repository
+      - eval $(aws ecr get-login)
+      - docker push ${AWS_REG_URL}/vendor-engagement-app:$(node change-ver.js ${CIRCLE_BUILD_NUM} ${CIRCLE_BRANCH})
